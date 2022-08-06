@@ -1,0 +1,54 @@
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.1.2
+      with:
+        node-version: 12.x
+
+    # Instalar as dependencias NPM/Yarn
+    - name: Install dependencies
+      run: yarn
+
+    # Executar a build
+    - name: Run build
+      run: yarn build
+
+    # Copiar codigo pra DigitalOcean VM
+    - name: Copy dist to DIGITALOCEAN VM
+      uses: appleboy/scp-action@v0.1.1
+      with:
+        host: ${{ secrets.SSH_DIGITALOCEAN_HOST }}
+        username: ${{ secrets.SSH_DIGITALOCEAN_USER }}
+        port: ${{ secrets.SSH_DIGITALOCEAN_PORT }}
+        key: ${{ secrets.SSH_DIGITALOCEAN_KEY }}
+        passphrase: ${{ secrets.SSH_DIGITALOCEAN_KEY_PASSWORD }}
+        source: ".,!node_modules"
+        target: "~/app/temchurras-back"
+
+    # Executar production scripts
+    - name: Install dependencies on DigitalOcean VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_DIGITALOCEAN_HOST }}
+        username: ${{ secrets.SSH_DIGITALOCEAN_USER }}
+        port: ${{ secrets.SSH_DIGITALOCEAN_PORT }}
+        key: ${{ secrets.SSH_DIGITALOCEAN_KEY }}
+        passphrase: ${{ secrets.SSH_DIGITALOCEAN_KEY_PASSWORD }}
+        script: |
+          cd ~/app/temchurras-back
+          yarn
+          ./node_modules/.bin/typeorm migration:run
+          pm2 restart temchurras-api
