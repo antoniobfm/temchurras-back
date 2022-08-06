@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js environment
       uses: actions/setup-node@v2.1.2
       with:
-        node-version: 12.x
+        node-version: 16.x
 
     # Instalar as dependencias NPM/Yarn
     - name: Install dependencies
