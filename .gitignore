@@ -1,0 +1,15 @@
+.idea/
+.vscode/
+node_modules/
+build/
+temp/
+.env
+.env.test
+coverage
+ormconfig.json
+dist
+
+tmp/*
+!tmp/.gitkeep
+
+pgdata

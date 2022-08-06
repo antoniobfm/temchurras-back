@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+ api:
+  image: node:12.22.4
+  env_file:
+   - dev.env
+  command: yarn dev:server
+  depends_on:
+   - postgres
+  ports:
+   - 3333:3333
+   - 9929:9929 # for debugging
+  volumes:
+   - ./:/app
+  working_dir: /app
+  networks:
+   - default
+
+ postgres:
+  image: postgres:13.4
+  environment:
+   POSTGRES_PASSWORD: "docker"
+   POSTGRES_USER: "postgres"
+   POSTGRES_DB: "qualaboa"
+  volumes:
+   - ./pgdata:/var/lib/postgresql/data
+  ports:
+   - 5432:5432
+  networks:
+   - default
+
+networks:
+ default:
