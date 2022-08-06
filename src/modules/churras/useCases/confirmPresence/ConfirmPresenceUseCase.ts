@@ -3,9 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { AppError } from "@shared/errors/AppError";
 import { IUsersRepository } from "@modules/users/repositories/IUsersRepository";
 import IChurrasRepository from "@modules/churras/repositories/IChurrasRepository";
-import Churras from "@modules/churras/infra/typeorm/entities/Churras";
 import { IChurrasPresenceRepository } from "@modules/churras/repositories/IChurrasPresenceRepository";
-import ChurrasPresence from "@modules/churras/infra/typeorm/entities/ChurrasPresence";
 
 interface IRequest {
 	user_id: string;
@@ -52,7 +50,7 @@ class ConfirmPresenceUseCase {
 				churras_id,
 			});
 
-			return {id: churras_id, user_id: user.id, name: churras.name};
+			return {id: churras_id, user_id: user.id, name: user.name};
     }
 }
 
