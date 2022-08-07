@@ -12,7 +12,7 @@ interface ISMSConfig {
 }
 
 export default {
-	driver: process.env.MAIL_DRIVER || 'sendpulse',
+	driver: process.env.SMS_DRIVER || 'sendpulse',
 
 	defaults: {
 		sendpulse: {
