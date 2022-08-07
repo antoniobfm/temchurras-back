@@ -4,13 +4,12 @@ services:
  api:
   image: node:12.22.4
   env_file:
-   - dev.env
-  command: yarn dev:server
+   - .env
+  command: bash -c "yarn typeorm migration:run && yarn dev:server"
   depends_on:
    - postgres
   ports:
    - 3333:3333
-   - 9929:9929 # for debugging
   volumes:
    - ./:/app
   working_dir: /app
@@ -20,9 +19,9 @@ services:
  postgres:
   image: postgres:13.4
   environment:
-   POSTGRES_PASSWORD: "docker"
-   POSTGRES_USER: "postgres"
-   POSTGRES_DB: "qualaboa"
+   POSTGRES_PASSWORD: docker
+   POSTGRES_USER: postgres
+   POSTGRES_DB: temchurras
   volumes:
    - ./pgdata:/var/lib/postgresql/data
   ports:
