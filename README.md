@@ -17,9 +17,9 @@ To run this project, you will need to add the following environment variables to
 
 | Name                          | Description                         | Default Value                                  |
 | ----------------------------- | ------------------------------------| -----------------------------------------------|
-|APP_SECRET           | Front-end URL            | A0D7F8Gha8eung9A8EBV8ubnefq      |
+|APP_SECRET           | App Secret            | A0D7F8Gha8eung9A8EBV8ubnefq      |
 |APP_WEB_URL           | Front-end URL            | http://localhost:300      |
-|SMS_DRIVER           | Front-end URL            | sendpulse      |
+|SMS_DRIVER           | SMS Driver            | sendpulse      |
 |SENDPULSE_API_USER_ID           | SendPulse API User ID            |       |
 |SENDPULSE_API_SECRET           | API Secret from SendPulse            |       |
 |SENDPULSE_TOKEN_STORAGE           | SendPulse Token Storage Directory            |       |
