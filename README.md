@@ -36,7 +36,6 @@ git clone git@github.com:antoniobfm/temchurras-back.git
 
 ```sh
 cd temchurras-back
-yarn or npm install
 ```
 
 - Create and populate ```.env``` (you can use ```.env.example``` as base)
